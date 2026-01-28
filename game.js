@@ -23,6 +23,9 @@ function playRound(humanChoice, computerChoice) {
         ++humanWins
         alert("You have won this round!")
     }
+    else if (humanChoice === computerChoice) {
+        alert("It's a tie!")
+    }
     else {
         ++computerWins
         alert("You have lost this round! The computer wins!")
