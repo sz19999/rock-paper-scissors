@@ -21,14 +21,28 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice === "scissors" && computerChoice === "paper")
     ) {
         ++humanWins;
-        winMsg.textContent = "Player has won!";
+        if (humanWins < 5) {
+            winMsg.textContent = "Player has won this round!";
+        }
+        else {
+            winMsg.textContent = "Player has won! Game has ended!";
+            computerWins = 0;
+            humanWins = 0;
+        }
     }
     else if (humanChoice === computerChoice) {
-        winMsg.textContent = "It's a tie!";
+        winMsg.textContent = "It's a tie this round!";
     }
     else {
         ++computerWins;
-        winMsg.textContent = "Computer has won!";
+        if (computerWins < 5) {
+            winMsg.textContent = "Computer has won this round!";
+        }
+        else {
+            winMsg.textContent = "Computer has won! Game has ended!";
+            computerWins = 0;
+            humanWins = 0;
+        }
     }
 }
 
