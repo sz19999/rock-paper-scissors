@@ -1,17 +1,17 @@
-function getHumanChoice() {
-    return prompt("Paper, Rock or Scissors?:")
+function getHumanChoice(event) {
+    return event.target.id
 }
 
 function getComputerChoice() {
-    const choice = Math.floor(Math.random() * 3)    // gen a random num from 0 to 2 uniformly
+    const choice = Math.floor(Math.random() * 3);    // gen a random num from 0 to 2 uniformly
 
     switch (choice) {
         case 0:
-            return "paper"
+            return "paper";
         case 1:
-            return "rock"
+            return "rock";
         case 2:
-            return "scissors"
+            return "scissors";
     }
 }
 
@@ -20,32 +20,42 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice === "rock"     && computerChoice === "scissors") ||
         (humanChoice === "scissors" && computerChoice === "paper")
     ) {
-        ++humanWins
-        alert("You have won this round!")
+        ++humanWins;
+        winMsg.textContent = "Player has won!";
     }
     else if (humanChoice === computerChoice) {
-        alert("It's a tie!")
+        winMsg.textContent = "It's a tie!";
     }
     else {
-        ++computerWins
-        alert("You have lost this round! The computer wins!")
+        ++computerWins;
+        winMsg.textContent = "Computer has won!";
     }
 }
 
-function playGame() {
-    // play paper-rock-scissors game 5 rounds
-    for (i = 1; i <= 5; i++) {
-        let humanChoice = getHumanChoice()
-        let computerChoice = getComputerChoice()
-        playRound(humanChoice, computerChoice)
-    }
+function playGame(event) {
+    let humanChoice = getHumanChoice(event)
+    let computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 
-    // show game stats
-    alert(`player wins: ${humanWins}\ncomputer wins: ${computerWins}`)
+    // update game stats
+    playerStats.textContent = `Player: ${humanWins}`;
+    computerStats.textContent = `Computer: ${computerWins}`;
 }
 
 // global variables
-let humanWins    = 0
-let computerWins = 0
+let humanWins    = 0;
+let computerWins = 0;
 
-playGame()  // start game
+const playerStats = document.querySelector("#player-stats");
+const computerStats = document.querySelector("#computer-stats");
+const winMsg = document.querySelector("#win-msg");
+
+const btnRock = document.querySelector("#rock");
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+
+btnRock.addEventListener("click", playGame);
+btnPaper.addEventListener("click", playGame);
+btnScissors.addEventListener("click", playGame);
+
+playGame();  // start game
